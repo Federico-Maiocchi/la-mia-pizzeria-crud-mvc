@@ -5,7 +5,7 @@
     Layout = "_CustomLayout"; 
 }
 
-
+@* Home - index *@
 
 <div class="text-center">
    @*  <h1 class="display-4">Pizzeria ristorante</h1> *@
@@ -25,12 +25,12 @@
                 <div class="col-4  p-2">
 
                     <div class="card card-pizza" style="width: 18rem;">
-                        <img src="@Url.Content(itemPizza.Image)" class="card-img-top" alt="@itemPizza.Nome">
+                        <img src="@Url.Content(itemPizza.Image)" class="card-img-top" alt="@itemPizza.Name">
                         <div class="card-body">
-                            <h5 class="card-title">@itemPizza.Nome</h5>
+                            <h5 class="card-title">@itemPizza.Name</h5>
                             <p class="card-text">@itemPizza.Description</p>
                             <p class="card-text">Prezzo: @itemPizza.Price &euro;</p>
-                            <a href="#" class="btn btn-primary">Guarda</a>
+                            <a href="@Url.Action("Show", new {id = itemPizza.Id} )" class="btn btn-primary">Guarda</a>
                         </div>
                     </div>
 

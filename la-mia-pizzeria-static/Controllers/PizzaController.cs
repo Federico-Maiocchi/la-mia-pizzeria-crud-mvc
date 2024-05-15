@@ -5,54 +5,43 @@ namespace la_mia_pizzeria_static.Controllers
 {
     public class PizzaController : Controller
     {
+        public PizzaContext db = new PizzaContext();
+        
+
         public IActionResult Index()
         {
-            List<Pizza> pizze = new List<Pizza>();
+            //List<Pizza> pizze = new List<Pizza>();
+            //{
+            //    new Pizza { Name = "Margherita", Description = "Pizza Margherita , normale", Image = "~/img/margherita.png", Price = 8.99m },
+            //    new Pizza { Name = "Capricciosa", Description = "pizza capricciosa, molto capricciosa", Image = "~/img/capricciosa.png", Price = 9.99m },
+            //    new Pizza { Name = "Quattro Stagioni", Description = "Pizza quattro stagioni, in primavera è buona", Image = "~/img/quattro-stagioni.png", Price = 10.99m },
+            //    new Pizza { Name = "Diavola", Description = "Pizza diavola, è sempre arrabbiata", Image = "~/img/diavola.png", Price = 9.49m },
+            //    new Pizza { Name = "Bufala", Description = "pizza bufala, è uno scherzo", Image = "~/img/bufala.png", Price = 11.49m }
+            //};
 
-            pizze.Add(new Pizza
-            {
-                Nome = "Margherita",
-                Description = "Pizza Margherita , normale",
-                Image = "~/img/margherita.png",
-                Price = 8.99m
-            });
-            pizze.Add(new Pizza
-            {
-                Nome = "Capricciosa",
-                Description = "pizza capricciosa, molto capricciosa",
-                Image = "~/img/capricciosa.png",
-                Price = 9.99m
-            });
-            pizze.Add(new Pizza
-            {
-                Nome = "Quattro Stagioni",
-                Description = "Pizza quattro stagioni, in primavera è buona",
-                Image = "~/img/quattro-stagioni.png",
-                Price = 10.99m
-            });
-            pizze.Add(new Pizza
-            {
-                Nome = "Diavola",
-                Description = "Pizza diavola, è sempre arrabbiata",
-                Image = "~/img/diavola.png",
-                Price = 9.49m
-            });
-            pizze.Add(new Pizza
-            {
-                Nome = "Bufala",
-                Description = "pizza bufala, è uno scherzo",
-                Image = "~/img/bufala.png",
-                Price = 11.49m
-            });
+            //db.Pizze.AddRange(pizze);
+            //db.SaveChanges();
 
-            ViewData["Message"] = "Prova messaggio pizzacontroller";
+            //ViewData["Message"] = "Prova messaggio pizzacontroller";
+
+            //return View(pizze);
+
+            List<Pizza> pizze = db.Pizze.ToList();
 
             return View(pizze);
         }
 
-        public IActionResult NewPath()
+        
+        public IActionResult Show(int id)
         {
-            return View("Show")
+            var pizza = db.Pizze.Find(id);
+
+            if (pizza == null)
+            {
+                return NotFound();
+            }
+
+            return View(pizza);
         }
     }
 }

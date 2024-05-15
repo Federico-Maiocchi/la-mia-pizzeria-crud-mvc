@@ -3,3 +3,14 @@
 *@
 @{
 }
+
+@model Pizza
+<div class="card card-pizza" style="width: 18rem;">
+    <img src="@Url.Content(Model.Image)" class="card-img-top" alt="@Model.Name">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Name</h5>
+        <p class="card-text">@Model.Description</p>
+        <p class="card-text">Prezzo: @Model.Price &euro;</p>
+        <a href="@Url.Action("Show", "Pizza", Model )" class="btn btn-primary">Guarda</a>
+    </div>
+</div>
