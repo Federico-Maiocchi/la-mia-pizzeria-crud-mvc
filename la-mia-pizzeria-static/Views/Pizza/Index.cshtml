@@ -2,22 +2,25 @@
 @using Microsoft.AspNetCore.Mvc;
 @{
     ViewData["Title"] = "Home Page";
-    Layout = "_CustomLayout"; 
+    Layout = "_CustomLayout";
+
+
+
 }
 
 
 
 <div class="text-center">
-   @*  <h1 class="display-4">Pizzeria ristorante</h1> *@
+    @*  <h1 class="display-4">Pizzeria ristorante</h1> *@
     @* <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p> *@
-    
+
     <h1 class="display-4 p-1">Pizzeria ristorante</h1>
     <h2 class="text-center">Lista di pizze</h2>
 
     <div class="container pt-1">
         <div class="row justify-content-center">
 
-            
+
 
             @model List<Pizza>
             @foreach (Pizza itemPizza in Model)
@@ -30,7 +33,7 @@
                             <h5 class="card-title">@itemPizza.Nome</h5>
                             <p class="card-text">@itemPizza.Description</p>
                             <p class="card-text">Prezzo: @itemPizza.Price &euro;</p>
-                            <a href="#" class="btn btn-primary">Guarda</a>
+                            @* <a href="#" class="btn btn-primary">Go somewhere</a> *@
                         </div>
                     </div>
 
@@ -40,4 +43,5 @@
     </div>
 
 </div>
+
 
