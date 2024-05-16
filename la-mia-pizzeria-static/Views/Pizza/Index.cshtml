@@ -19,12 +19,17 @@
     <h1 class="display-4 p-1">Pizzeria ristorante</h1>
     <h2 class="text-center">Lista di pizze</h2>
 
+    @* <a class="nav-link text-dark" asp-area="" asp-controller="Pizza" asp-action="Create">
+        <button class="btn btn-primary">Aggiungi pizza</button>
+    </a> *@
+
+    <a class="nav-link text-dark" href="@Url.Action("Create", "Pizza")">
+        <button class="btn btn-primary">Aggiungi pizza</button>
+    </a>
+    
     <div class="container pt-1">
         <div class="row justify-content-center">
 
-            
-
-            
             @if (Model == null || !Model.Any())
             {
                 <p>Non ci sono pizze nella lista </p>
