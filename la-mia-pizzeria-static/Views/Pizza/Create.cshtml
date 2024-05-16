@@ -1,0 +1,62 @@
+﻿@model Pizza
+
+@{
+    Layout = "_CustomLayout";
+}
+
+
+@* <div class="container">
+    <form asp-controller="Pizza" asp-action="Create" method="post">
+        @Html.AntiForgeryToken()
+        <div class="mb-3">
+            <strong>Nome:</strong>
+            <input asp-for="Name" class="d-block w-100" />
+        </div>
+        <div class="mb-3">
+            <strong>Cognome:</strong>
+            <input asp-for="Description" class="d-block w-100" />
+        </div>
+        <div class="mb-3">
+            <strong>Età:</strong>
+            <input asp-for="Image" class="d-block w-100" />
+        </div>
+        <div class="mb-3">
+            <strong>Età:</strong>
+            <input asp-for="Price" class="d-block w-100" />
+        </div>
+        <div class="text-end">
+            <input type="submit" class="btn btn-small btn-info" value="Inserisci nuova pizza">
+        </div>
+    </form>
+</div> *@
+
+
+
+<section class="create-pizza">
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <h2 class="py-4">Aggiungi nuova pizza</h2>
+                <form asp-controller="Pizza" asp-action="Create" method="post">
+                    <div class="form-group col-6">
+                        <label for="name">Nome</label>
+                        <input asp-for="Name"  type="text" class="form-control" id="name" placeholder="Inserisci nome della pizza">
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="price">Descrizione</label>
+                        <textarea asp-for="Description" type="text" class="form-control" id="price" placeholder="Inserisci prezzo della pizza"> </textarea>
+                    </div>
+                    <div class="form-group col-6">
+                        <label for="price">Prezzo</label>
+                        <input asp-for="Price" type="text" class="form-control" id="price" placeholder="Inserisci prezzo della pizza">
+                    </div>
+                    <div class="form-group">
+                        <label for="Image">Inserisci immagine</label>
+                        <input asp-for="Image" class="form-control" id="description" rows="3">
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

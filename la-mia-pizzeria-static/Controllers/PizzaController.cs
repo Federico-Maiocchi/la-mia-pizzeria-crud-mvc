@@ -1,4 +1,5 @@
 ﻿using la_mia_pizzeria_static.Data;
+using la_mia_pizzeria_static.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace la_mia_pizzeria_static.Controllers
@@ -56,6 +57,34 @@ namespace la_mia_pizzeria_static.Controllers
             } 
         }
 
-        
+
+        //Sezione CREATE
+        //GET
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        //POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Pizza data)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("Create", data);
+            }
+
+            using (PizzaContext db = new PizzaContext())
+            {
+                var pizzaToCreate = new Pizza(data.Name, data.Description, data.Image, data.Price);
+
+                db.Pizze.Add(pizzaToCreate);
+                db.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+        }
     }
 }
