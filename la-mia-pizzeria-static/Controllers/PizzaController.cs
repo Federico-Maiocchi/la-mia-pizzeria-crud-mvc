@@ -1,4 +1,4 @@
-﻿using la_mia_pizzeria_static.Models;
+﻿using la_mia_pizzeria_static.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace la_mia_pizzeria_static.Controllers
@@ -26,22 +26,36 @@ namespace la_mia_pizzeria_static.Controllers
 
             //return View(pizze);
 
-            List<Pizza> pizze = db.Pizze.ToList();
+            //List<Pizza> pizze = db.Pizze.ToList();
 
-            return View(pizze);
+            //return View(pizze);
+
+            return View(PizzaManager.GetAllPizzas());
         }
 
         
         public IActionResult Show(int id)
         {
-            var pizza = db.Pizze.Find(id);
+            //var pizza = db.Pizze.Find(id);
 
-            if (pizza == null)
+            //if (pizza == null)
+            //{
+            //    return NotFound();
+            //}
+
+            //return View(pizza);
+
+            var pizza = PizzaManager.GetPizzaById(id);
+            if (pizza != null)
+            {
+                return View(pizza);
+            } 
+            else
             {
                 return NotFound();
-            }
-
-            return View(pizza);
+            } 
         }
+
+        
     }
 }
