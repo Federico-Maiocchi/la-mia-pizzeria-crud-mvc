@@ -18,7 +18,7 @@ namespace la_mia_pizzeria_static.Models
 
         
         [StringLength(300, ErrorMessage = "Il nome non può avere più di 300 caratteri")]
-        public string? Description { get; set; }
+        public string Description { get; set; }
 
         public string? Image { get; set; }
 

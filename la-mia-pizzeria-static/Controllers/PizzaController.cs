@@ -31,6 +31,8 @@ namespace la_mia_pizzeria_static.Controllers
 
             //return View(pizze);
 
+            //PizzaManager.Seed();
+
             return View(PizzaManager.GetAllPizzas());
         }
 
