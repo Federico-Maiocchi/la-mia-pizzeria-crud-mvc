@@ -11,12 +11,20 @@ namespace la_mia_pizzeria_static.Models
     {
         [Key]
         public int Id { get; set; }
+        //Validazioni
+        [Required(ErrorMessage = "Il campo è obbligatorio")]
+        [StringLength(30, ErrorMessage = "Il nome non può avere più di 30 caratteri")]
         public string Name { get; set; }
 
-        public string Description { get; set; }
+        [StringLength(300, ErrorMessage = "Il nome non può avere più di 300 caratteri")]
+        public string?Description { get; set; }
 
         public string? Image { get; set; }
 
+        [Required(ErrorMessage = "Il campo è obbligatorio")]
+        [Range(1, 100)]
+        [DataType(DataType.Currency)]
+        [Column(TypeName = "decimal(18, 2)")]
         public decimal Price { get; set; }
 
         public Pizza() { }
