@@ -48,6 +48,12 @@
                                 <p class="card-text">Prezzo: @itemPizza.Price &euro;</p>
                                 <a href="@Url.Action("Show", new {id = itemPizza.Id} )" class="btn btn-primary">Guarda</a>
                                 <a href="@Url.Action("Update", new {id = itemPizza.Id} )" class="btn btn-primary">Modifica</a>
+                                <form aps-controller="Pizza" asp-action="Delete" asp-route-id="@itemPizza.Id" method="post">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-danger btn-sm">
+                                        Cancella
+                                    </button> 
+                                </form>
                             </div>
                         </div>
 

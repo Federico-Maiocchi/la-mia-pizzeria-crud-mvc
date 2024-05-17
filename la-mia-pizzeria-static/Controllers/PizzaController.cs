@@ -122,5 +122,32 @@ namespace la_mia_pizzeria_static.Controllers
                 return NotFound();
             }   
         }
+
+
+        //sezione DELETE
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        
+        public IActionResult Delete(int id)
+        {
+            using (PizzaContext db = new PizzaContext())
+            {
+                Pizza pizzaToDelete = PizzaManager.GetPizzaById(id);
+
+                if (pizzaToDelete != null)
+                {
+                    db.Pizze.Remove(pizzaToDelete);
+
+                    db.SaveChanges();
+
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            
+        } 
     }
 }
