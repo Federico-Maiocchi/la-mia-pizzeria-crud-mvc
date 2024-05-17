@@ -16,13 +16,13 @@ namespace la_mia_pizzeria_static.Models
         [StringLength(30, ErrorMessage = "Il nome non può avere più di 30 caratteri")]
         public string Name { get; set; }
 
-        
+        [Required(ErrorMessage = "Il campo è obbligatorio")]
         [StringLength(300, ErrorMessage = "Il nome non può avere più di 300 caratteri")]
         public string Description { get; set; }
 
         public string? Image { get; set; }
 
-        [Required(ErrorMessage = "Il campo è obbligatorio")]
+        //[Required(ErrorMessage = "Il campo è obbligatorio")]
         [Range(1, 100)]
         [DataType(DataType.Currency)]
         [Column(TypeName = "decimal(18, 2)")]

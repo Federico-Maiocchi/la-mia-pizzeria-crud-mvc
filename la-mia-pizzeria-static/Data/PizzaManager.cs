@@ -30,6 +30,28 @@ namespace la_mia_pizzeria_static.Data
             db.SaveChanges();
         }
 
+
+        public static bool UpdatePizza(int id, string name, string description, string image, decimal price)
+        {
+            using PizzaContext db = new PizzaContext();
+
+            var pizza = db.Pizze.FirstOrDefault(p => p.Id == id);
+
+            if (pizza == null)
+            {
+                return false;
+            }
+
+            pizza.Name = name;
+            pizza.Description = description;
+            pizza.Image = image;
+            pizza.Price = price;
+
+            db.SaveChanges();
+
+            return true;
+        }
+
         public static void Seed()
         {
             using PizzaContext db = new PizzaContext();
