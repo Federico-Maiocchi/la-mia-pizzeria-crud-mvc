@@ -28,6 +28,15 @@ namespace la_mia_pizzeria_static.Models
         [Column(TypeName = "decimal(18, 2)")]
         public decimal Price { get; set; }
 
+
+
+        //relazione 1 : N con Category
+        public int? CategoryId { get; set; }
+
+        public Category? Category { get; set; }
+
+
+
         public Pizza() { }
 
         public Pizza(string name, string description, string image, decimal price)
