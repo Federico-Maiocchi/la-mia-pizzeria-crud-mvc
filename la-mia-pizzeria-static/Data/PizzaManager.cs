@@ -17,6 +17,12 @@ namespace la_mia_pizzeria_static.Data
             return db.Pizze.ToList();
         }
 
+        public static List<Category> GetAllCategories()
+        {
+            using PizzaContext db = new PizzaContext();
+            return db.Categorie.ToList();
+        }
+
         public static Pizza GetPizzaById(int id)
         {
             using PizzaContext db = new PizzaContext();
