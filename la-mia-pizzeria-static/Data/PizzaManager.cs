@@ -37,7 +37,7 @@ namespace la_mia_pizzeria_static.Data
         }
 
 
-        public static bool UpdatePizza(int id, string name, string description, string image, decimal price)
+        public static bool UpdatePizza(int id, string name, string description, string image, decimal price, int? categoryId)
         {
             using PizzaContext db = new PizzaContext();
 
@@ -52,6 +52,7 @@ namespace la_mia_pizzeria_static.Data
             pizza.Description = description;
             pizza.Image = image;
             pizza.Price = price;
+            pizza.CategoryId = categoryId;
 
             db.SaveChanges();
 

@@ -79,7 +79,19 @@ namespace la_mia_pizzeria_static.Controllers
         [HttpGet]
         public IActionResult Update(int id)
         {
-            
+
+            //Pizza pizzaToEdit = PizzaManager.GetPizzaById(id);
+
+            //if (pizzaToEdit == null)
+            //{
+            //    return NotFound();
+            //}
+            //else
+            //{
+
+            //    return View(pizzaToEdit);
+            //}
+
             Pizza pizzaToEdit = PizzaManager.GetPizzaById(id);
 
             if (pizzaToEdit == null)
@@ -88,15 +100,19 @@ namespace la_mia_pizzeria_static.Controllers
             }
             else
             {
-                return View(pizzaToEdit);
+                PizzaFormModel model = new PizzaFormModel();
+                model.Pizza = pizzaToEdit;
+                model.Categories = PizzaManager.GetAllCategories();
+
+                return View(model);
             }
-              
+
         }
 
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Update(int id, Pizza data)
+        public IActionResult Update(int id, PizzaFormModel data)
         {
             if (!ModelState.IsValid)
             {
@@ -124,7 +140,7 @@ namespace la_mia_pizzeria_static.Controllers
             //    }
             //}
 
-            if (PizzaManager.UpdatePizza(id, data.Name, data.Description, data.Image, data.Price))
+            if (PizzaManager.UpdatePizza(id, data.Pizza.Name, data.Pizza.Description, data.Pizza.Image, data.Pizza.Price, data.Pizza.CategoryId))
             {
                 return RedirectToAction("Index");
             }
