@@ -21,7 +21,7 @@ namespace la_mia_pizzeria_static.Controllers
         public IActionResult Show(int id)
         {
          
-            var pizza = PizzaManager.GetPizzaById(id);
+            var pizza = PizzaManager.GetPizzaById(id, true);
             if (pizza != null)
             {
                 return View(pizza);
@@ -51,6 +51,7 @@ namespace la_mia_pizzeria_static.Controllers
         {
             if (!ModelState.IsValid)
             {
+                
                 return View("Create", data);
             }
 
@@ -116,7 +117,9 @@ namespace la_mia_pizzeria_static.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View("Update");
+                List<Category> categories = PizzaManager.GetAllCategories();
+                data.Categories = categories; 
+                return View("Update", data);
             }
 
             //using (PizzaContext db = new PizzaContext())

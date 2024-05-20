@@ -1,5 +1,6 @@
 ﻿using la_mia_pizzeria_static.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace la_mia_pizzeria_static.Data
 {
@@ -23,10 +24,25 @@ namespace la_mia_pizzeria_static.Data
             return db.Categorie.ToList();
         }
 
-        public static Pizza GetPizzaById(int id)
+        //public static Pizza GetPizzaById(int id)
+        //{
+        //    using PizzaContext db = new PizzaContext();
+        //    return db.Pizze.FirstOrDefault(p => p.Id == id);
+        //}
+
+        public static Pizza GetPizzaById(int id, bool includesReferences = true)
         {
             using PizzaContext db = new PizzaContext();
-            return db.Pizze.FirstOrDefault(p => p.Id == id);
+            
+            if (includesReferences)
+            {
+                return db.Pizze.Where(p => p.Id == id).Include(p => p.Category).FirstOrDefault();
+            }
+            else
+            {
+                return db.Pizze.FirstOrDefault(p => p.Id == id);
+            }
+            
         }
 
         public static void InserPizza(Pizza pizza)

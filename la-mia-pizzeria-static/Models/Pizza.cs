@@ -47,6 +47,19 @@ namespace la_mia_pizzeria_static.Models
             Price = price;
         }
 
+
+        public string GetDisplayCategory()
+        {
+            if (Category == null)
+            {
+                return "Nessuna categoria";
+            }
+            else
+            {
+                return Category.Name;
+            }
+        }
+
         /*public string PriceString()
         {
             string priceStringConvert = $"{Price} €";
