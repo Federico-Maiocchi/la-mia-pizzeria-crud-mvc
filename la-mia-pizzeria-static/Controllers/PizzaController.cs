@@ -47,22 +47,30 @@ namespace la_mia_pizzeria_static.Controllers
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Pizza data)
+        public IActionResult Create(PizzaFormModel data)
         {
             if (!ModelState.IsValid)
             {
                 return View("Create", data);
             }
 
-            using (PizzaContext db = new PizzaContext())
-            {
-                var pizzaToCreate = new Pizza(data.Name, data.Description, data.Image, data.Price);
+            //using (PizzaContext db = new PizzaContext())
+            //{
+            //    var pizzaToCreate = new Pizza(data.Name, data.Description, data.Image, data.Price);
 
-                db.Pizze.Add(pizzaToCreate);
-                db.SaveChanges();
+            // impostiamo lo sport preferito dell'utente
+            //    pizzaToCreate.CategoryId = data.Pizza.CategoryId;
 
-                return RedirectToAction("Index");
-            }
+
+            //    db.Pizze.Add(pizzaToCreate);
+            //    db.SaveChanges();
+
+            //    return RedirectToAction("Index");
+            //}
+
+            PizzaManager.InserPizza(data.Pizza);
+            return RedirectToAction("Index");
+
         }
 
 

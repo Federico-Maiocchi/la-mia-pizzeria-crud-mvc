@@ -10,5 +10,7 @@ namespace la_mia_pizzeria_static.Models
 
         public List<Pizza> Pizze { get; set;}   
 
+        public Category() { }
+
     }
 }
