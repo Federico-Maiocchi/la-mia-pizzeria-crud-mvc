@@ -36,6 +36,7 @@ namespace la_mia_pizzeria_static.Models
                 {
                     Text = ingredient.Name,
                     Value = ingredient.Id.ToString(),
+                    Selected = this.Pizza.Ingredients?.Any(i => i.Id == ingredient.Id) == true,
                 });
             }
         }

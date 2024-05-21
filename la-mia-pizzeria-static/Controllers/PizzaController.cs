@@ -111,6 +111,7 @@ namespace la_mia_pizzeria_static.Controllers
                 PizzaFormModel model = new PizzaFormModel();
                 model.Pizza = pizzaToEdit;
                 model.Categories = PizzaManager.GetAllCategories();
+                model.CreateIngredients();
 
                 return View(model);
             }
@@ -125,7 +126,9 @@ namespace la_mia_pizzeria_static.Controllers
             if (!ModelState.IsValid)
             {
                 List<Category> categories = PizzaManager.GetAllCategories();
-                data.Categories = categories; 
+                data.Categories = categories;
+                data.CreateIngredients();
+
                 return View("Update", data);
             }
 
@@ -150,7 +153,7 @@ namespace la_mia_pizzeria_static.Controllers
             //    }
             //}
 
-            if (PizzaManager.UpdatePizza(id, data.Pizza.Name, data.Pizza.Description, data.Pizza.Image, data.Pizza.Price, data.Pizza.CategoryId))
+            if (PizzaManager.UpdatePizza(id, data.Pizza.Name, data.Pizza.Description, data.Pizza.Image, data.Pizza.Price, data.Pizza.CategoryId, data.SelectedIngredients))
             {
                 return RedirectToAction("Index");
             }

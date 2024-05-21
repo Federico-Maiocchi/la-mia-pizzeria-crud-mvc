@@ -1,5 +1,6 @@
 ﻿using la_mia_pizzeria_static.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace la_mia_pizzeria_static.Data
@@ -95,11 +96,12 @@ namespace la_mia_pizzeria_static.Data
         }
 
         //Modificare una pizza
-        public static bool UpdatePizza(int id, string name, string description, string image, decimal price, int? categoryId)
+        public static bool UpdatePizza(int id, string name, string description, string image,
+            decimal price, int? categoryId, List<string> ingredients)
         {
             using PizzaContext db = new PizzaContext();
 
-            var pizza = db.Pizze.FirstOrDefault(p => p.Id == id);
+            var pizza = db.Pizze.Where(p => p.Id == id).Include(p => p.Ingredients).FirstOrDefault();
 
             if (pizza == null)
             {
@@ -111,6 +113,18 @@ namespace la_mia_pizzeria_static.Data
             pizza.Image = image;
             pizza.Price = price;
             pizza.CategoryId = categoryId;
+
+            pizza.Ingredients.Clear();
+            if (ingredients != null)
+            {
+                foreach (var ingredient in ingredients)
+                {
+                    int ingredientId = int.Parse(ingredient);
+                    var ingredientFromDb = db.Ingredienti.FirstOrDefault(i => i.Id == ingredientId);
+                    pizza.Ingredients.Add(ingredientFromDb);
+                }
+            }
+            
 
             db.SaveChanges();
 
@@ -133,5 +147,9 @@ namespace la_mia_pizzeria_static.Data
             db.Pizze.AddRange(pizze);
             db.SaveChanges();
         }
+    }
+
+    public class SelectedListIngredients
+    {
     }
 }
