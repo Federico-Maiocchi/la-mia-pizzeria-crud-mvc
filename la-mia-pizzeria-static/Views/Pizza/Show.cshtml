@@ -17,6 +17,19 @@
                 @* <p class="card-text">@Model.Category?.Name</p> *@
                 <p class="card-text">@Model.GetDisplayCategory()</p>
                 <p class="card-text">@Model.Description</p>
+                <div class="row">
+                    <div class="col">
+                        <div class="d-flex flex-wrap gap-2">
+                            @foreach (var ingredient in Model.Ingredients)
+                            {
+                                <div class="bg-primary text-light">
+                                    @ingredient.Name
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                </div>
                 <p class="card-text">Prezzo: @Model.Price &euro;</p>
                 @* <a href="@Url.Action("Show", "Pizza", Model )" class="btn btn-primary">Guarda</a> *@
             </div>

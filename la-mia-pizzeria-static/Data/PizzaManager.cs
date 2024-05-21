@@ -6,12 +6,16 @@ namespace la_mia_pizzeria_static.Data
 {
     public static class PizzaManager
     {
+        private static int id;
+
         public static int CountAllPizzas()
         {
             using PizzaContext db = new PizzaContext();
             return db.Pizze.Count();
 
         }
+
+        //prendere tutte le pizze
         public static List<Pizza> GetAllPizzas()
         {
             using PizzaContext db = new PizzaContext();
@@ -21,10 +25,18 @@ namespace la_mia_pizzeria_static.Data
             return db.Pizze.Include(p => p.Category).ToList();
         }
 
+        //prendere tutte le categorie
         public static List<Category> GetAllCategories()
         {
             using PizzaContext db = new PizzaContext();
             return db.Categorie.ToList();
+        }
+
+        //prendere tutti gli ingredienti
+        public static List<Ingredient> GetAllIngredients()
+        {
+            using PizzaContext db = new PizzaContext();
+            return db.Ingredienti.ToList();
         }
 
         //public static Pizza GetPizzaById(int id)
@@ -33,13 +45,14 @@ namespace la_mia_pizzeria_static.Data
         //    return db.Pizze.FirstOrDefault(p => p.Id == id);
         //}
 
+        //prendere la pizza con ID e includere le categorie/ingredienti
         public static Pizza GetPizzaById(int id, bool includesReferences = true)
         {
             using PizzaContext db = new PizzaContext();
             
             if (includesReferences)
             {
-                return db.Pizze.Where(p => p.Id == id).Include(p => p.Category).FirstOrDefault();
+                return db.Pizze.Where(p => p.Id == id).Include(p => p.Category).Include(p => p.Ingredients).FirstOrDefault();
             }
             else
             {
@@ -48,14 +61,40 @@ namespace la_mia_pizzeria_static.Data
             
         }
 
-        public static void InserPizza(Pizza pizza)
+        public static Category GetCategoryById(int id)
         {
             using PizzaContext db = new PizzaContext();
+            return db.Categorie.FirstOrDefault(c => c.Id == id);
+        }
+
+        public static Ingredient GetIngredientById(int id)
+        {
+            using PizzaContext db = new PizzaContext();
+            return db.Ingredienti.FirstOrDefault(i => i.Id == id);
+        }
+
+        //Aggiungere una nuova pizza
+        public static void InserPizza(Pizza pizza, List<string> SelectedIngredients = null)
+        {
+            using PizzaContext db = new PizzaContext();
+
+            if (SelectedIngredients != null)
+            {
+                pizza.Ingredients = new List<Ingredient>();
+
+                foreach (var ingredientId in SelectedIngredients)
+                {
+                    int idInt = int.Parse(ingredientId);
+                    var ingredient = db.Ingredienti.FirstOrDefault(i => i.Id == idInt);
+                    pizza.Ingredients.Add(ingredient);
+                }
+            }
+
             db.Pizze.Add(pizza);
             db.SaveChanges();
         }
 
-
+        //Modificare una pizza
         public static bool UpdatePizza(int id, string name, string description, string image, decimal price, int? categoryId)
         {
             using PizzaContext db = new PizzaContext();

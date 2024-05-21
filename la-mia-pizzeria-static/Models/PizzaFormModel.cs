@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using la_mia_pizzeria_static.Data;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace la_mia_pizzeria_static.Models
 {
@@ -6,15 +7,16 @@ namespace la_mia_pizzeria_static.Models
     {
         //Pizza
         public Pizza Pizza {  get; set; }
+
         //Categorie
         public List<Category>? Categories {  get; set; }
+
         //Ingredienti
         //elecon ingredienti selezionabili
-        public List<SelectListItem>? Ingradients { get; set; }
-        //elecon degli ID degli ingredienti selezionati
+        public List<SelectListItem>? Ingredients { get; set; }
+        //elenco degli ID degli ingredienti selezionati
         public List<string>? SelectedIngredients { get; set; }
-
-
+        
 
         public PizzaFormModel() { }
 
@@ -22,6 +24,20 @@ namespace la_mia_pizzeria_static.Models
         {
             Pizza = pizza;
             Categories = categories;
+        }
+
+        public void CreateIngredients()
+        {
+            this.Ingredients = new List<SelectListItem>();
+            var ingredientsFromDb = PizzaManager.GetAllIngredients();
+            foreach (var ingredient in ingredientsFromDb)
+            {
+                this.Ingredients.Add(new SelectListItem()
+                {
+                    Text = ingredient.Name,
+                    Value = ingredient.Id.ToString(),
+                });
+            }
         }
     }
 }
