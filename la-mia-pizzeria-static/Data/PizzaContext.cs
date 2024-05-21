@@ -5,9 +5,16 @@ namespace la_mia_pizzeria_static.Data
 {
     public class PizzaContext : DbContext
     {
+        //Pizza
         public DbSet<Pizza> Pizze { get; set; }
 
+        //Categorie
         public DbSet<Category> Categorie { get; set; }
+
+        //Ingredienti
+        public DbSet<Ingredient> Ingredienti { get; set; }
+
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

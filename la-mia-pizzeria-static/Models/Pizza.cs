@@ -30,10 +30,14 @@ namespace la_mia_pizzeria_static.Models
 
 
 
-        //relazione 1 : N con Category
+        //relazione 1 : N con CATEGORY
         public int? CategoryId { get; set; }
 
         public Category? Category { get; set; }
+
+
+        //relazione N : N con INGREDIENT
+        public List<Ingredient>? Ingredients {  get; set; }
 
 
 
