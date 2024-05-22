@@ -1,5 +1,7 @@
 ﻿using la_mia_pizzeria_static.Data;
 using la_mia_pizzeria_static.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -8,8 +10,8 @@ namespace la_mia_pizzeria_static.Controllers
     public class PizzaController : Controller
     {
         public PizzaContext db = new PizzaContext();
-        
 
+        [Authorize(Roles = "ADMIN,USER")]
         public IActionResult Index()
         {
            
@@ -18,7 +20,7 @@ namespace la_mia_pizzeria_static.Controllers
             return View(PizzaManager.GetAllPizzas());
         }
 
-        
+        [Authorize(Roles = "ADMIN,USER")]
         public IActionResult Show(int id)
         {
          
@@ -37,6 +39,7 @@ namespace la_mia_pizzeria_static.Controllers
         //Sezione CREATE
         //GET
         [HttpGet]
+        [Authorize(Roles = "ADMIN")]
         public IActionResult Create()
         {
             PizzaFormModel model = new PizzaFormModel();
@@ -50,6 +53,7 @@ namespace la_mia_pizzeria_static.Controllers
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "ADMIN")]
         public IActionResult Create(PizzaFormModel data)
         {
             if (!ModelState.IsValid)
@@ -85,6 +89,7 @@ namespace la_mia_pizzeria_static.Controllers
         //sezione UPDATE
         //GET
         [HttpGet]
+        [Authorize(Roles = "ADMIN")]
         public IActionResult Update(int id)
         {
 
@@ -121,6 +126,7 @@ namespace la_mia_pizzeria_static.Controllers
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "ADMIN")]
         public IActionResult Update(int id, PizzaFormModel data)
         {
             if (!ModelState.IsValid)
@@ -167,7 +173,8 @@ namespace la_mia_pizzeria_static.Controllers
         //sezione DELETE
         [HttpPost]
         [ValidateAntiForgeryToken]
-        
+        [Authorize(Roles = "ADMIN")]
+
         public IActionResult Delete(int id)
         {
             using (PizzaContext db = new PizzaContext())
